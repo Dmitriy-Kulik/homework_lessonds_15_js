@@ -15,18 +15,32 @@ function books() {
         this.year = year;
         this.qantPages = qantPages;
         
-        this.getInfBook = function () {
-            var arr = {};
+/*        this.getInfBook = function () {
             for(var key in book()){
-                return console.log(key);
+                console.log(key);
             }
-            //return arr;
-        }
+
+        }*/
     }
+
 
     var War_of_the_Worlds = new book('Война миров', 'Герберт Уельс', 1897, 356);
     var Vingt_mille_lieues_sous_les_mers = new book('Двадцать тысяч льё под водой', 'Жюль Верн', 1870, 483);
-    console.log(War_of_the_Worlds.getInfBook());
-    console.log(Vingt_mille_lieues_sous_les_mers);
-    console.log(War_of_the_Worlds.getInfBook())
+    //console.log(War_of_the_Worlds.getInfBook());
+    //console.log(Vingt_mille_lieues_sous_les_mers);
+
+    function getInfBookCall() {
+        for (var key in War_of_the_Worlds){
+            console.log(War_of_the_Worlds[key]);
+        }
+    }
+    function getInfBookAplly() {
+        for (var key in Vingt_mille_lieues_sous_les_mers){
+            console.log(Vingt_mille_lieues_sous_les_mers[key]);
+        }
+    }
+    getInfBookCall.call(War_of_the_Worlds);
+    console.log('///////////////////////////////');
+    getInfBookAplly.apply(Vingt_mille_lieues_sous_les_mers, Vingt_mille_lieues_sous_les_mers.name);
+    console.log('///////////////////////////////');
 }
