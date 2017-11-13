@@ -15,32 +15,50 @@ function books() {
         this.year = year;
         this.qantPages = qantPages;
         
-/*        this.getInfBook = function () {
-            for(var key in book()){
-                console.log(key);
-            }
+ /*       this.getInfBook = function () {
+            for(var key in book){
+                console.log(book[key]);
+            };
 
         }*/
     }
 
-
     var War_of_the_Worlds = new book('Война миров', 'Герберт Уельс', 1897, 356);
     var Vingt_mille_lieues_sous_les_mers = new book('Двадцать тысяч льё под водой', 'Жюль Верн', 1870, 483);
-    //console.log(War_of_the_Worlds.getInfBook());
-    //console.log(Vingt_mille_lieues_sous_les_mers);
+    var The_Mysterious_Island = new book('Таинственный остров', 'Жюль Верн', 1874, 400);
+    var Hard_to_Be_a_God = new book('Трудно быть богом', 'Аркадий и Борис Стругацкие', 1964, 300);
 
-    function getInfBookCall() {
-        for (var key in War_of_the_Worlds){
-            console.log(War_of_the_Worlds[key]);
+    function getInfBookCall(b) {
+        var arg = [].slice.call(arguments);
+        for (var key in arg){
+            console.log(arg[key]);
+            console.log('1');
         }
     }
-    function getInfBookAplly() {
-        for (var key in Vingt_mille_lieues_sous_les_mers){
-            console.log(Vingt_mille_lieues_sous_les_mers[key]);
+    function getInfBookAplly(a) {
+        for (var key in a){
+            console.log(a[key]);
         }
     }
-    getInfBookCall.call(War_of_the_Worlds);
+    function getInfBookBind(c) {
+        for (var key in this){
+            console.log(this[key]);
+        }
+        for (var item in c){
+            console.log(c[item]);
+        }
+    }
+
+    getInfBookCall.call(book, War_of_the_Worlds, Hard_to_Be_a_God);
     console.log('///////////////////////////////');
-    getInfBookAplly.apply(Vingt_mille_lieues_sous_les_mers, Vingt_mille_lieues_sous_les_mers.name);
+    var arr = [Vingt_mille_lieues_sous_les_mers, The_Mysterious_Island];
+    getInfBookAplly.apply(book, arr);
     console.log('///////////////////////////////');
+    var b = getInfBookBind.bind(Hard_to_Be_a_God);
+    b([War_of_the_Worlds, The_Mysterious_Island]);
+    console.log('///////////////////////////////');
+
+    //War_of_the_Worlds.getInfBook();
+    //getInfBookAplly.apply(Vingt_mille_lieues_sous_les_mers, Vingt_mille_lieues_sous_les_mers.name);
+    //console.log('///////////////////////////////');
 }
