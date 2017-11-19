@@ -8,57 +8,100 @@
 */
 
 
-function books() {
+/*function books() {
     function book(name, avtor, year, qantPages) {
         this.name = name;
         this.avtor = avtor;
         this.year = year;
         this.qantPages = qantPages;
+
+    }*/
+function books() {
+    var book = {
+        name: 'chto-to-tam',
+        avtor: 'kto-to-tam',
+        year: 'gdeto-tam',
         
- /*       this.getInfBook = function () {
-            for(var key in book){
-                console.log(book[key]);
-            };
-
-        }*/
-    }
-
-    var War_of_the_Worlds = new book('Война миров', 'Герберт Уельс', 1897, 356);
-    var Vingt_mille_lieues_sous_les_mers = new book('Двадцать тысяч льё под водой', 'Жюль Верн', 1870, 483);
-    var The_Mysterious_Island = new book('Таинственный остров', 'Жюль Верн', 1874, 400);
-    var Hard_to_Be_a_God = new book('Трудно быть богом', 'Аркадий и Борис Стругацкие', 1964, 300);
-
-    function getInfBookCall(b) {
-        var arg = [].slice.call(arguments);
-        for (var key in arg){
-            console.log(arg[key]);
-            console.log('1');
+        getCall: function (name, avtor) {
+/*            for (var i in arg){
+                console.log(arg[i]);
+            }*/
+            console.log(this[name] + ' ' + this[avtor]);
+        },
+        getAplly: function (arg1, arg2) {
+            for (var i in this)
+                console.log(this[i]);
+        },
+        getBind: function (a) {
+            console.log('//');
+            for (var key in this) {
+                console.log(this[key]);
+            }
+            for (var key in a) {
+                console.log(a[key]);
+            }
         }
+    }
+    var War_of_the_Worlds = Object.create(book);
+    War_of_the_Worlds.name = "Война миров";
+    War_of_the_Worlds.avtor = "Герберт Уельс";
+    War_of_the_Worlds.year = 1897;
+
+    var Vingt_mille_lieues_sous_les_mers = Object.create(book);
+    Vingt_mille_lieues_sous_les_mers.name = "Двадцать тысяч льё под водой";
+    Vingt_mille_lieues_sous_les_mers.avtor = "Жюль Верн";
+    Vingt_mille_lieues_sous_les_mers.year = 1870;
+
+    var The_Mysterious_Island = Object.create(book);
+    The_Mysterious_Island.name = "Таинственный остров";
+    The_Mysterious_Island.avtor = "Жюль Верн";
+    The_Mysterious_Island.year = 1874;
+
+    var Hard_to_Be_a_God = Object.create(book);
+    Hard_to_Be_a_God.name = "Трудно быть богом";
+    Hard_to_Be_a_God.avtor = "Аркадий и Борис Стругацкие";
+    Hard_to_Be_a_God.year = 1964;
+
+    function getInfBookCall(avtor, name, year) {
+        console.log(this[avtor] + " " + this[name] + " " + this[year]);
+/*        for (var key in b){
+            console.log(b[key]);
+        }*/
     }
     function getInfBookAplly(a) {
         for (var key in a){
             console.log(a[key]);
         }
     }
-    function getInfBookBind(c) {
-        for (var key in this){
-            console.log(this[key]);
+    function getInfBookBind(arg){
+        for (var key1 in this){
+            console.log(this[key1]);
         }
-        for (var item in c){
-            console.log(c[item]);
+        console.log('//');
+        for (var key2 in arg) {
+            console.log(arg[key2]);
         }
     }
 
-    getInfBookCall.call(book, War_of_the_Worlds, Hard_to_Be_a_God);
-    console.log('///////////////////////////////');
-    var arr = [Vingt_mille_lieues_sous_les_mers, The_Mysterious_Island];
-    getInfBookAplly.apply(book, arr);
-    console.log('///////////////////////////////');
-    var b = getInfBookBind.bind(Hard_to_Be_a_God);
-    b([War_of_the_Worlds, The_Mysterious_Island]);
-    console.log('///////////////////////////////');
+    getInfBookCall.call(book, 'avtor', 'name', 'year');
+    getInfBookCall.call(War_of_the_Worlds, 'avtor', 'name', 'year');
+    console.log('////////////////////////////////////////////////////////1');
 
-    //War_of_the_Worlds.getInfBook();
-    //getInfBookAplly.apply(Vingt_mille_lieues_sous_les_mers, Vingt_mille_lieues_sous_les_mers.name);
-    //console.log('///////////////////////////////');
+    getInfBookAplly.apply(book, [book]);
+    //console.log('//');
+    getInfBookAplly.apply(War_of_the_Worlds, [War_of_the_Worlds]);
+    console.log('////////////////////////////////////////////////////////2');
+
+    var w = getInfBookBind.bind(book);
+    w(The_Mysterious_Island);
+    console.log('////////////////////////////////////////////////////////3');
+
+    book.getCall.call(book, 'name', 'avtor');
+    console.log('////////////////////////////////////////////////////////4');
+
+    book.getAplly.apply(book, ["name", "avtor"]);
+    console.log('////////////////////////////////////////////////////////5');
+
+    var g = book.getBind.bind(book);
+    g(War_of_the_Worlds);
 }
